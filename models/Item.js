@@ -6,7 +6,7 @@ const itemSchema = new mongoose.Schema(
     category: {
       type: String,
       required: true,
-      enum: ["medicine", "optical"], 
+      enum: ["1", "2"], 
     },
     description: { type: String },
     price: { type: Number, required: true },
