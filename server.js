@@ -1,15 +1,14 @@
-
-import express from "express";
-import cors from "cors";
-import itemRouter from "./routes/itemRoutes.js";
-import orderRouter from "./routes/orderRoutes.js";
-import widgetRouter from "./routes/widgetRoutes.js";
+const express = require("express");
+const cors = require("cors");
+const connectDB = require("./configs/db");
+const itemRouter = require("./routes/itemRoutes");
+const orderRouter = require("./routes/orderRoutes");
+const widgetRouter = require("./routes/widgetRoutes");
 
 connectDB();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-
 
 const allowedOrigins = [
   "http://localhost:5173",
@@ -40,4 +39,4 @@ app.use("/api/widgets", widgetRouter);
 // });
 
 // Export the app for Vercel serverless function
-export default app;
+module.exports = app;
