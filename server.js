@@ -1,7 +1,6 @@
 
-import itemRouter from "./routes/itemRoutes.js";
-import orderRouter from "./routes/orderRoutes.js";
-import widgetRouter from "./routes/widgetRoutes.js";
+
+import connectDB from "./configs/db.js";
 
 connectDB();
 
