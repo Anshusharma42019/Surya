@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 const orderItemSchema = new mongoose.Schema({
   itemId: { type: mongoose.Schema.Types.ObjectId, ref: "Item", required: true },
   itemName: { type: String, required: true },
-  category: { type: Number, required: true },
+  category: { type: String, required: true },
   quantity: { type: Number, required: true },
   unitType: {
     type: String,
