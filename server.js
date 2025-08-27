@@ -1,9 +1,10 @@
-const express = require("express");
-const cors = require("cors");
-const connectDB = require("./configs/db");
-const itemRouter = require("./routes/itemRoutes");
-const orderRouter = require("./routes/orderRoutes");
-const widgetRouter = require("./routes/widgetRoutes");
+
+import express from "express";
+import cors from "cors";
+import connectDB from "./configs/db.js";
+import itemRouter from "./routes/itemRoutes.js";
+import orderRouter from "./routes/orderRoutes.js";
+import widgetRouter from "./routes/widgetRoutes.js";
 
 connectDB();
 
@@ -39,4 +40,4 @@ app.use("/api/widgets", widgetRouter);
 // });
 
 // Export the app for Vercel serverless function
-module.exports = app;
+export default app;
