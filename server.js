@@ -1,6 +1,7 @@
-import express from "express";
-import cors from "cors";
-import connectDB from "./configs/db.js";
+
+import itemRouter from "./routes/itemRoutes.js";
+import orderRouter from "./routes/orderRoutes.js";
+import widgetRouter from "./routes/widgetRoutes.js";
 
 connectDB();
 
