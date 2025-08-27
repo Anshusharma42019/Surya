@@ -6,12 +6,30 @@ import itemRouter from "./routes/itemRoutes.js";
 import orderRouter from "./routes/orderRoutes.js";
 import widgetRouter from "./routes/widgetRoutes.js";
 
+dotenv.config();
+connectDB();
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-await connectDB();
 
-app.use(cors());
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://surya-two.vercel.app/",
+];
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+    optionsSuccessStatus: 204,
+  })
+);
 app.use(express.json());
 
 app.use("/api/items", itemRouter);
