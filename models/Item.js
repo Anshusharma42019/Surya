@@ -15,7 +15,7 @@ const itemSchema = new mongoose.Schema(
       type: String,
       enum: [
         // Medicine Units
-        "Tablet",
+        "tablet",
         "Capsule",
         "Milligram",
         "Microgram",
