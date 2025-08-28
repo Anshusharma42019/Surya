@@ -52,4 +52,12 @@ const itemSchema = new mongoose.Schema(
 
 const Item = mongoose.model("Item", itemSchema);
 
+export const medicalUnitTypes = [
+  "Tablet", "Capsule", "Milligram", "Microgram", "Milliliter", "Cubic Centimeter", "Drop", "Gram", "Ounce", "Bottle", "Vial", "Blister Pack", "Strip", "Box", "Syringe", "Tube"
+];
+
+export const opticalUnitTypes = [
+  "Diopter (D)", "Prism Diopter (Δ)", "Millimeter (mm)", "Base Curve (BC)", "Diameter (DIA)", "Cylinder (CYL)", "Axis (AX)", "Pair"
+];
+
 export default Item;

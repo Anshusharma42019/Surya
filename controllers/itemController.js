@@ -1,6 +1,5 @@
-import Item from "../models/Item.js";
+import Item, { medicalUnitTypes, opticalUnitTypes } from "../models/Item.js";
 import { sendResponse } from "../utils/apiResponse.js";
-
 // Create Item
 export const createItem = async (req, res) => {
   try {
@@ -74,6 +73,8 @@ export const deleteItem = async (req, res) => {
 
 // In controllers/itemController.js
 export const getUnitTypes = (req, res) => {
-  const unitTypes = Item.schema.path("unitType").enumValues;
-  res.json(unitTypes);
+  sendResponse(res, true, 200, "Unit types fetched successfully", {
+    medical: medicalUnitTypes,
+    optical: opticalUnitTypes
+  });
 };
