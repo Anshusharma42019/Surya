@@ -6,7 +6,7 @@ const itemSchema = new mongoose.Schema(
     category: {
       type: String,
       required: true,
-      enum: ["1", "2"], 
+      enum: ["1", "2"],
     },
     description: { type: String },
     price: { type: Number, required: true },

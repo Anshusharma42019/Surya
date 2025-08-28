@@ -1,4 +1,5 @@
 
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import connectDB from "./configs/db.js";
@@ -35,9 +36,9 @@ app.use("/api/orders", orderRouter);
 app.use("/api/widgets", widgetRouter);
 
 // Remove app.listen for Vercel deployment
-// app.listen(PORT, () => {
-//   console.log(`Server running on http://localhost:${PORT}`);
-// });
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
 
 // Export the app for Vercel serverless function
 export default app;

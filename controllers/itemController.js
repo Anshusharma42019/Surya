@@ -71,3 +71,9 @@ export const deleteItem = async (req, res) => {
     sendResponse(res, false, 500, err.message, []);
   }
 };
+
+// In controllers/itemController.js
+export const getUnitTypes = (req, res) => {
+  const unitTypes = Item.schema.path("unitType").enumValues;
+  res.json(unitTypes);
+};
