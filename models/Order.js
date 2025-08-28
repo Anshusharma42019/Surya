@@ -16,6 +16,7 @@ const orderItemSchema = new mongoose.Schema(
       enum: [
         // Medicine Units
         "tablet",
+        "Tablet",
         "Capsule",
         "Milligram",
         "Microgram",
