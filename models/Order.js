@@ -34,7 +34,7 @@ const orderItemSchema = new mongoose.Schema({
       "Diameter (DIA)",
       "Cylinder (CYL)",
       "Axis (AX)",
-      "Pair",
+      "Pair"
     ],
     required: true
   },
