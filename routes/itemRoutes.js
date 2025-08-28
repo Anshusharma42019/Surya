@@ -4,6 +4,7 @@ import { createItem, getItems, getItem, updateItem, deleteItem, getUnitTypes } f
 const router = express.Router();
 
 router.post("/", createItem); 
+router.get("/", getItems);
 
 router.get("/unit-types", getUnitTypes);
 router.get("/:id", getItem);
