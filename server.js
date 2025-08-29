@@ -3,6 +3,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import connectDB from "./configs/db.js";
+import authRouter from "./routes/userRoutes.js";
 import itemRouter from "./routes/itemRoutes.js";
 import orderRouter from "./routes/orderRoutes.js";
 import widgetRouter from "./routes/widgetRoutes.js";
@@ -31,6 +32,7 @@ app.use(
 );
 app.use(express.json());
 
+app.use("/api/auth", authRouter);
 app.use("/api/items", itemRouter);
 app.use("/api/orders", orderRouter);   
 app.use("/api/widgets", widgetRouter);
