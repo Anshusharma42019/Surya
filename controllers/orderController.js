@@ -9,9 +9,7 @@ export const createOrder = async (req, res) => {
     const lastNumber = lastInvoice ? parseInt(lastInvoice.invoiceNumber.split('-')[1]) : 0;
     const nextNumber = lastNumber + 1;
     const invoiceNumber = `INV-${nextNumber.toString().padStart(3, '0')}`;
-    
     const order = await Order.create({ ...req.body, invoiceNumber });
-    
     return sendResponse(res, true, 201, "Order created successfully", order);
   } catch (err) {
     return sendResponse(res, false, 500, err.message);
