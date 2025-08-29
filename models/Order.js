@@ -55,6 +55,7 @@ const orderItemSchema = new mongoose.Schema(
 const orderSchema = new mongoose.Schema(
   {
     orderNumber: { type: String, required: true, unique: true },
+    invoiceNumber: { type: String, unique: true, sparse: true },
     customerName: { type: String, required: true },
     customerPhone: { type: String, required: true },
     items: [orderItemSchema],

@@ -5,7 +5,13 @@ import { generateInvoice } from "../utils/invoiceGenerator.js";
 // CREATE
 export const createOrder = async (req, res) => {
   try {
-    const order = await Order.create(req.body);
+    const lastInvoice = await Order.findOne({ invoiceNumber: { $exists: true } }).sort({ createdAt: -1 });
+    const lastNumber = lastInvoice ? parseInt(lastInvoice.invoiceNumber.split('-')[1]) : 0;
+    const nextNumber = lastNumber + 1;
+    const invoiceNumber = `INV-${nextNumber.toString().padStart(3, '0')}`;
+    
+    const order = await Order.create({ ...req.body, invoiceNumber });
+    
     return sendResponse(res, true, 201, "Order created successfully", order);
   } catch (err) {
     return sendResponse(res, false, 500, err.message);
@@ -81,7 +87,7 @@ export const deleteInvoice = async (req, res) => {
   try {
     const order = await Order.findOneAndUpdate(
       { _id: req.params.id, is_deleted: false },
-      { is_deleted: true },
+      { is_deleted: true, invoiceNumber: null },
       { new: true }
     );
     if (!order) return sendResponse(res, false, 404, "Invoice not found");

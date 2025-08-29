@@ -1,6 +1,6 @@
 export const generateInvoice = (order) => {
   const invoice = {
-    invoiceNumber: order.orderNumber,
+    invoiceNumber: order.invoiceNumber,
     date: new Date(order.createdAt).toLocaleDateString(),
     time: new Date(order.createdAt).toLocaleTimeString(),
     customer: {
