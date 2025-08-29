@@ -6,13 +6,13 @@ import {
   updateOrder,
   deleteOrder,
   getOrderInvoice,
-  deleteInvoice
+  deleteInvoice,
+  getYearlyRevenue,
+  getMonthlyRevenue
 } from "../controllers/orderController.js";
-
 
 const router = express.Router();
 
-// Order CRUD
 router.post("/", createOrder);
 router.get("/", getOrders);
 router.get("/:id", getOrderById);
@@ -22,5 +22,9 @@ router.delete("/:id", deleteOrder);
 // Invoice
 router.get("/:id/invoice", getOrderInvoice);
 router.delete("/:id/invoice", deleteInvoice);
+
+// Revenue stats
+router.get("/stats/yearly", getYearlyRevenue);
+router.get("/stats/monthly", getMonthlyRevenue);
 
 export default router;

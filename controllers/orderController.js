@@ -101,3 +101,54 @@ export const deleteInvoice = async (req, res) => {
     return sendResponse(res, false, 500, err.message);
   }
 };
+
+// 📊 YEARLY REVENUE
+export const getYearlyRevenue = async (req, res) => {
+  try {
+    const { year } = req.query;
+    if (!year) return sendResponse(res, false, 400, "Year is required");
+
+    const startDate = new Date(`${year}-01-01T00:00:00Z`);
+    const endDate = new Date(`${parseInt(year) + 1}-01-01T00:00:00Z`);
+
+    const revenue = await Order.aggregate([
+      { $match: { is_deleted: false, createdAt: { $gte: startDate, $lt: endDate } } },
+      { $group: { _id: null, totalRevenue: { $sum: "$totalAmount" } } },
+    ]);
+
+    return sendResponse(res, true, 200, "Yearly revenue fetched successfully", revenue[0] || { totalRevenue: 0 });
+  } catch (err) {
+    return sendResponse(res, false, 500, err.message);
+  }
+};
+
+// 📊 MONTHLY REVENUE
+export const getMonthlyRevenue = async (req, res) => {
+  try {
+    const { year } = req.query;
+    if (!year) return sendResponse(res, false, 400, "Year is required");
+
+    const startDate = new Date(`${year}-01-01T00:00:00Z`);
+    const endDate = new Date(`${parseInt(year) + 1}-01-01T00:00:00Z`);
+
+    const revenue = await Order.aggregate([
+      { $match: { is_deleted: false, createdAt: { $gte: startDate, $lt: endDate } } },
+      { $group: { _id: { month: { $month: "$createdAt" } }, monthlyRevenue: { $sum: "$totalAmount" } } },
+      { $sort: { "_id.month": 1 } },
+    ]);
+
+    const months = [
+      "January","February","March","April","May","June",
+      "July","August","September","October","November","December"
+    ];
+
+    const formatted = months.map((m, idx) => {
+      const found = revenue.find(r => r._id.month === idx + 1);
+      return { month: m, revenue: found ? found.monthlyRevenue : 0 };
+    });
+
+    return sendResponse(res, true, 200, "Monthly revenue fetched successfully", formatted);
+  } catch (err) {
+    return sendResponse(res, false, 500, err.message);
+  }
+};
