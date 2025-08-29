@@ -1,5 +1,6 @@
 import Order from "../models/Order.js";
 import { sendResponse } from "../utils/apiResponse.js";
+import { generateInvoice } from "../utils/invoiceGenerator.js";
 
 // CREATE
 export const createOrder = async (req, res) => {
@@ -67,6 +68,35 @@ export const deleteOrder = async (req, res) => {
     );
     if (!order) return sendResponse(res, false, 404, "Order not found");
     return sendResponse(res, true, 200, "Order deleted successfully");
+  } catch (err) {
+    return sendResponse(res, false, 500, err.message);
+  }
+};
+
+// INVOICE
+export const getOrderInvoice = async (req, res) => {
+  try {
+    const order = await Order.findOne({ _id: req.params.id, is_deleted: false });
+    if (!order) return sendResponse(res, false, 404, "Invoice not found or deleted");
+
+    const invoice = generateInvoice(order);
+    return sendResponse(res, true, 200, "Invoice generated successfully", invoice);
+  } catch (err) {
+    return sendResponse(res, false, 500, err.message);
+  }
+};
+
+// SOFT DELETE INVOICE
+export const deleteInvoice = async (req, res) => {
+  try {
+    const order = await Order.findOneAndUpdate(
+      { _id: req.params.id, is_deleted: false },
+      { is_deleted: true },
+      { new: true }
+    );
+    if (!order) return sendResponse(res, false, 404, "Invoice not found");
+
+    return sendResponse(res, true, 200, "Invoice deleted successfully");
   } catch (err) {
     return sendResponse(res, false, 500, err.message);
   }
