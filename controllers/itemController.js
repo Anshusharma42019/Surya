@@ -10,25 +10,11 @@ export const createItem = async (req, res) => {
   }
 };
 
-// Get Items with Pagination, Filter, Sort
+// Get All Items (use /api/paginate/Item for pagination)
 export const getItems = async (req, res) => {
   try {
-    const { skip = 0, limit = 10, sort = '{"createdAt": -1}', filter = "{}" } = req.query;
-    const parsedFilter = JSON.parse(filter);
-    const parsedSort = JSON.parse(sort);
-
-    // Add soft delete filter
-    parsedFilter.is_deleted = false;
-
-    const total = await Item.countDocuments(parsedFilter);
-    const items = await Item.find(parsedFilter)
-      .sort(parsedSort)
-      .skip(parseInt(skip))
-      .limit(parseInt(limit));
-
-    const meta = { skip: +skip, limit: +limit, count: items.length, total, filter: parsedFilter, sort: parsedSort };
-
-    sendResponse(res, true, 200, null, items, meta);
+    const items = await Item.find({ is_deleted: false });
+    sendResponse(res, true, 200, "Items fetched successfully", items);
   } catch (err) {
     sendResponse(res, false, 500, err.message, []);
   }

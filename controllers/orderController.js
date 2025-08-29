@@ -12,21 +12,11 @@ export const createOrder = async (req, res) => {
   }
 };
 
-// READ ALL with pagination, filter, sort
+// READ ALL (use /api/paginate/Order for pagination)
 export const getOrders = async (req, res) => {
   try {
-    const { skip = 0, limit = 10, sort = "-createdAt", customerName } = req.query;
-    let filter = { is_deleted: false };
-    if (customerName) filter.customerName = new RegExp(customerName, "i");
-
-    const total = await Order.countDocuments(filter);
-    const orders = await Order.find(filter)
-      .skip(Number(skip))
-      .limit(Number(limit))
-      .sort(sort);
-
-    const meta = { skip: Number(skip), limit: Number(limit), total, count: orders.length, sort, filter };
-    return sendResponse(res, true, 200, "Orders fetched successfully", orders, meta);
+    const orders = await Order.find({ is_deleted: false }).sort("-createdAt");
+    return sendResponse(res, true, 200, "Orders fetched successfully", orders);
   } catch (err) {
     return sendResponse(res, false, 500, err.message);
   }

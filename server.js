@@ -7,6 +7,7 @@ import authRouter from "./routes/userRoutes.js";
 import itemRouter from "./routes/itemRoutes.js";
 import orderRouter from "./routes/orderRoutes.js";
 import widgetRouter from "./routes/widgetRoutes.js";
+import paginationRoutes from "./routes/paginationRoutes.js";
 
 connectDB();
 
@@ -36,6 +37,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/items", itemRouter);
 app.use("/api/orders", orderRouter);   
 app.use("/api/widgets", widgetRouter);
+app.use("/api/paginate", paginationRoutes);
 
 // Remove app.listen for Vercel deployment
 app.listen(PORT, () => {
