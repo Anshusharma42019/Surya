@@ -1,4 +1,3 @@
-
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
@@ -16,7 +15,8 @@ const PORT = process.env.PORT || 5000;
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://surya-psi.vercel.app/",
+  "https://surya-psi.vercel.app",
+  "https://surya-frontend-kappa.vercel.app/",
 ];
 app.use(
   cors({
@@ -35,7 +35,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRouter);
 app.use("/api/items", itemRouter);
-app.use("/api/orders", orderRouter);   
+app.use("/api/orders", orderRouter);
 app.use("/api/widgets", widgetRouter);
 app.use("/api/paginate", paginationRoutes);
 
