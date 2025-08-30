@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 5000;
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://surya-psi.vercel.app",
+  "https://surya-psi.vercel.app/",
   "https://surya-frontend-kappa.vercel.app",
 ];
 app.use(
